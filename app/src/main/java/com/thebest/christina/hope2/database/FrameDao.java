@@ -35,7 +35,9 @@ public class FrameDao {
         contentValues.put(DatabaseHelper.SignalTable.COLUMN_LATITUDE, frame._latitude);
         contentValues.put(DatabaseHelper.SignalTable.COLUMN_LONGITUDE, frame._longitude);
         contentValues.put(DatabaseHelper.SignalTable.COLUMN_TIME, frame._time);
-        contentValues.put(DatabaseHelper.SignalTable.COLUMN_SIGNAL_STRENGTH, frame._signalStrength);
+        contentValues.put(DatabaseHelper.SignalTable.COLUMN_ASU_SIGNAL_STRENGTH, frame._asuSignalStrength);
+        contentValues.put(DatabaseHelper.SignalTable.COLUMN_BAR_SIGNAL_STRENGTH, frame._barSignalStrength);
+        contentValues.put(DatabaseHelper.SignalTable.COLUMN_DBM_SIGNAL_STRENGTH, frame._dbmSignalStrength);
         contentValues.put(DatabaseHelper.SignalTable.COLUMN_CELL_INFO, frame._cellInfo);
         contentValues.put(DatabaseHelper.SignalTable.COLUMN_NETWORK_PROVIDER, frame._networkProvider);
         // Insert into DB
@@ -61,7 +63,9 @@ public class FrameDao {
                 DatabaseHelper.SignalTable.COLUMN_LATITUDE,
                 DatabaseHelper.SignalTable.COLUMN_LONGITUDE,
                 DatabaseHelper.SignalTable.COLUMN_TIME,
-                DatabaseHelper.SignalTable.COLUMN_SIGNAL_STRENGTH,
+                DatabaseHelper.SignalTable.COLUMN_ASU_SIGNAL_STRENGTH,
+                DatabaseHelper.SignalTable.COLUMN_BAR_SIGNAL_STRENGTH,
+                DatabaseHelper.SignalTable.COLUMN_DBM_SIGNAL_STRENGTH,
                 DatabaseHelper.SignalTable.COLUMN_CELL_INFO,
                 DatabaseHelper.SignalTable.COLUMN_NETWORK_PROVIDER};
 
@@ -69,7 +73,7 @@ public class FrameDao {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            frames.add(new Frame(cursor.getDouble(0), cursor.getDouble(1), cursor.getLong(2), cursor.getInt(3), cursor.getString(4), cursor.getString(5)));
+            frames.add(new Frame(cursor.getDouble(0), cursor.getDouble(1), cursor.getLong(2), cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), cursor.getString(6), cursor.getString(7)));
             cursor.moveToNext();
         }
 

@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "SignalMap.db";
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
@@ -28,7 +28,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 SignalTable.COLUMN_LATITUDE + REAL_TYPE + COMMA_SEP +
                 SignalTable.COLUMN_LONGITUDE + REAL_TYPE + COMMA_SEP +
                 SignalTable.COLUMN_TIME + INTEGER_TYPE + COMMA_SEP +
-                SignalTable.COLUMN_SIGNAL_STRENGTH + INTEGER_TYPE + COMMA_SEP +
+                SignalTable.COLUMN_ASU_SIGNAL_STRENGTH + INTEGER_TYPE + COMMA_SEP +
+                SignalTable.COLUMN_BAR_SIGNAL_STRENGTH + INTEGER_TYPE + COMMA_SEP +
+                SignalTable.COLUMN_DBM_SIGNAL_STRENGTH + INTEGER_TYPE + COMMA_SEP +
                 SignalTable.COLUMN_CELL_INFO + TEXT_TYPE + COMMA_SEP +
                 SignalTable.COLUMN_NETWORK_PROVIDER + TEXT_TYPE +
                 " )");
@@ -46,7 +48,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         public static final String TABLE_NAME = "signalMap";
         public static final String COLUMN_LATITUDE = "latitude";
         public static final String COLUMN_LONGITUDE = "longitude";
-        public static final String COLUMN_SIGNAL_STRENGTH = "signalStrength";
+        public static final String COLUMN_ASU_SIGNAL_STRENGTH = "asuSignalStrength";
+        public static final String COLUMN_BAR_SIGNAL_STRENGTH = "barSignalStrength";
+        public static final String COLUMN_DBM_SIGNAL_STRENGTH = "dbmSignalStrength";
         public static final String COLUMN_TIME = "time";
         public static final String COLUMN_CELL_INFO = "cellInfo";
         public static final String COLUMN_NETWORK_PROVIDER = "networkProvider";

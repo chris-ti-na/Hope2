@@ -21,7 +21,6 @@ import com.thebest.christina.hope2.service.GeoSignalService;
 import com.thebest.christina.hope2.service.HttpService;
 
 import java.util.Date;
-import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -52,39 +51,59 @@ public class MainActivity extends Activity {
         _frameTextView = (TextView) findViewById(R.id.frameText);
         _excText = (TextView) findViewById(R.id.excText);
 
+//        String model = android.os.Build.MODEL;
+//        String device = android.os.Build.DEVICE;
+//        String board = android.os.Build.BOARD;
+//        String brand = android.os.Build.BRAND;
+//        String fingerprint = android.os.Build.FINGERPRINT;
+//        String hardware = android.os.Build.HARDWARE;
+//        String manufacturer = android.os.Build.MANUFACTURER;
+//        String product = android.os.Build.PRODUCT;
+//        String serial = android.os.Build.SERIAL;
+//        String type = android.os.Build.TYPE;
+//        String radio = android.os.Build.getRadioVersion();
+//
+//        String frameTextString = "model: " + model + "\ndevice: " + device +
+//                "\nboard: " + board + "\nbrand: " + brand +
+//                "\nfingerprint: " + fingerprint + "\nhardware: " + hardware +
+//                "\nmanufacturer: " + manufacturer + "\nproduct: " + product +
+//                "\nserial: " + serial + "\ntype: " + type + "\nradio: " + radio;
+//
+//
+//        _frameTextView.setText(frameTextString);
+
+        _frameTextView.setText("place");
+
         _eventBus.addEventListener("SignalLoadedEvent", new InternalListener() {
             @Override
             public void perform(Event a) {
                 SignalLoadedEvent event = (SignalLoadedEvent) a;
+
                 dao.createFrame(new Frame(
                         event._latitude,
                         event._longitude,
                         event._time,
-                        event._signalStrength,
+                        event._asuSignalStrength,
+                        event._barSignalStrength,
+                        event._dbmSignalStrength,
                         event._cellInfo,
                         event._networkProvider));
                 String time = String.format("%1$tF %1$tT", new Date(event._time));
                 String textViewString = "Coordinates:\nlatitude = " + event._latitude
                         + "\nlongitude = " + event._longitude
                         + "\ntime = " + time
-                        + "\nsignal = " + event._signalStrength
+                        + "\nsignal = " + event._asuSignalStrength
                         + "\ncellInfo = " + event._cellInfo
                         + "\nnetwork provider = " + event._networkProvider;
-                _locationTextView.setText(textViewString);
-                List<Frame> frames = dao.getAllFrames();
-                Frame frame = frames.get(frames.size() - 1);
-                String frameTextString = "Coordinates:\nlatitude = " + frame._latitude
-                        + "\nlongitude = " + frame._longitude
-                        + "\ntime = " + String.format("%1$tF %1$tT", new Date(frame._time))
-                        + "\nsignal = " + frame._signalStrength
-                        + "\ncellInfo = " + frame._cellInfo
-                        + "\nnetwork provider = " + frame._networkProvider;
-                _frameTextView.setText(frameTextString);
+                _frameTextView.setText(textViewString);
+
                 _eventBus.dispatchEvent(new SendFrameEvent(new Frame(
                         event._latitude,
                         event._longitude,
                         event._time,
-                        event._signalStrength,
+                        event._asuSignalStrength,
+                        event._barSignalStrength,
+                        event._dbmSignalStrength,
                         event._cellInfo,
                         event._networkProvider)));
             }
@@ -98,6 +117,7 @@ public class MainActivity extends Activity {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
+            _excText.setText("Connection !");
             _httpService = new HttpService(_eventBus);
         } else {
             System.out.println("Network is unable to connect.");

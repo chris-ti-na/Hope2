@@ -41,7 +41,9 @@ public class GeoSignalService implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        int _signalStrength = -1;
+        int _asuSignalStrength = -1;
+        int _barSignalStrength = -1;
+        int _dbmSignalStrength = -1;
         String cellInfoType = "UNABLE INFO";
         try {
             List<CellInfo> cellInfoList = _telephonyManager.getAllCellInfo();
@@ -51,19 +53,27 @@ public class GeoSignalService implements LocationListener {
                     if (info.isRegistered()) {
                         if (info instanceof CellInfoGsm) {
                             final CellSignalStrengthGsm gsm = ((CellInfoGsm) info).getCellSignalStrength();
-                            _signalStrength = gsm.getAsuLevel();
+                            _asuSignalStrength = gsm.getAsuLevel();
+                            _barSignalStrength = gsm.getLevel();
+                            _dbmSignalStrength = gsm.getDbm();
                             cellInfoType = "GSM";
                         } else if (info instanceof CellInfoCdma) {
                             final CellSignalStrengthCdma cdma = ((CellInfoCdma) info).getCellSignalStrength();
-                            _signalStrength = cdma.getAsuLevel();
+                            _asuSignalStrength = cdma.getAsuLevel();
+                            _barSignalStrength = cdma.getLevel();
+                            _dbmSignalStrength = cdma.getDbm();
                             cellInfoType = "CDMA";
                         } else if (info instanceof CellInfoWcdma) {
                             final CellSignalStrengthWcdma wcdma = ((CellInfoWcdma) info).getCellSignalStrength();
-                            _signalStrength = wcdma.getAsuLevel();
+                            _asuSignalStrength = wcdma.getAsuLevel();
+                            _barSignalStrength = wcdma.getLevel();
+                            _dbmSignalStrength = wcdma.getDbm();
                             cellInfoType = "WCDMA";
                         } else if (info instanceof CellInfoLte) {
                             final CellSignalStrengthLte lte = ((CellInfoLte) info).getCellSignalStrength();
-                            _signalStrength = lte.getAsuLevel();
+                            _asuSignalStrength = lte.getAsuLevel();
+                            _barSignalStrength = lte.getLevel();
+                            _dbmSignalStrength = lte.getDbm();
                             cellInfoType = "LTE";
                         }
                     }
@@ -72,7 +82,9 @@ public class GeoSignalService implements LocationListener {
             _eventBus.dispatchEvent(new SignalLoadedEvent(location.getLatitude(),
                     location.getLongitude(),
                     location.getTime(),
-                    _signalStrength,
+                    _asuSignalStrength,
+                    _barSignalStrength,
+                    _dbmSignalStrength,
                     cellInfoType,
                     _telephonyManager.getNetworkOperatorName()));
         }catch(SecurityException c) {
