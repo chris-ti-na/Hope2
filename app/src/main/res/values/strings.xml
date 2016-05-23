@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Signal Map</string>
-    <string name="info">Info</string>
-    <string name="start">Start</string>
-    <string name="stop">Stop</string>
-    <string name="goweb">Go to web-page</string>
+    <string name="sysinfo">Справка</string>
+    <string name="goweb">Перейти на страницу интернет-сервиса</string>
 </resources>

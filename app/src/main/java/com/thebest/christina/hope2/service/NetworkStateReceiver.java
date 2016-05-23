@@ -1,4 +1,4 @@
-package com.thebest.christina.hope2;
+package com.thebest.christina.hope2.service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

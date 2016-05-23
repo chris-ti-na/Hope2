@@ -47,7 +47,6 @@ public class GeoSignalService implements LocationListener {
         String cellInfoType = "UNABLE INFO";
         try {
             List<CellInfo> cellInfoList = _telephonyManager.getAllCellInfo();
-            //Unavalible on Samsung S4
             if(cellInfoList !=null) {
                 for (final CellInfo info : cellInfoList) {
                     if (info.isRegistered()) {
@@ -79,14 +78,16 @@ public class GeoSignalService implements LocationListener {
                     }
                 }
             }
-            _eventBus.dispatchEvent(new SignalLoadedEvent(location.getLatitude(),
-                    location.getLongitude(),
-                    location.getTime(),
-                    _asuSignalStrength,
-                    _barSignalStrength,
-                    _dbmSignalStrength,
-                    cellInfoType,
-                    _telephonyManager.getNetworkOperatorName()));
+            if((_asuSignalStrength != -1)&&(_barSignalStrength != -1)&&(_dbmSignalStrength != -1)) {
+                _eventBus.dispatchEvent(new SignalLoadedEvent(location.getLatitude(),
+                        location.getLongitude(),
+                        location.getTime(),
+                        _asuSignalStrength,
+                        _barSignalStrength,
+                        _dbmSignalStrength,
+                        cellInfoType,
+                        _telephonyManager.getNetworkOperatorName()));
+            }
         }catch(SecurityException c) {
                 new RuntimeException("Exception");
                 System.out.println("!");

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="5dp">
     <TextView
@@ -20,24 +21,16 @@
     </TextView>
 
     <Button
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/start" />
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/stop" />
-
-    <Button
         android:id="@+id/goweb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width = "5ee00dp"
+        android:layout_height = "200dp"
         android:text="@string/goweb" />
+
+    <Button
+        android:id="@+id/sysinfo"
+        android:layout_width = "500dp"
+        android:layout_height = "200dp"
+        android:text="@string/sysinfo" />
+
 
 </LinearLayout>
